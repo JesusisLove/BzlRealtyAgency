@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>Dashboard Template · Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+    <!-- Bootstrap core CSS -->
+    <!--<link href="../assets/dist/css/bootstrap.css" rel="stylesheet">-->
+    <link href="../assets/dist/css/bootstrap.css" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.css}"
+          rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" th:href="@{/dashboard/dashboard.css}" rel="stylesheet">
+</head>
+<body>
+<!--	引入抽取的topbar
+		模版名按照thymeleaf的前后缀配置规则进行解析
+		当前引用的模版是：dashboard.html,所以模版名就是dashboard-->
+<!--<div th:insert="~{dashboard::topbar}"></div>-->
+<div th:replace="~{commons/bar::topbar}"></div><!-- 2020/07/30 学习 thymeleaf 公共片段的抽取和引用：在此引用抽取的片段 -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- 2020/07/30 学习 thymeleaf 公共片段的抽取和引用：在此引用抽取的片，同时给变量activeUri赋值 以使当前连接的字体颜色高亮显示
+            变量传递语法：
+                <div th:replace="::frag (onevar=${value1},twovar=${value2})">...</div>
+            参看：Thymeleaf使用手册：8.2 Parameterizable fragment signatures
+            -->
+        <div th:replace="~{commons/bar::sidebar(activeUri='ct_keiyaku_002_link_active')}"></div>
+        <!-- 2020/07/30 学习 thymeleaf 公共片段的抽取和引用：在此引用抽取的片段 -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <form th:action="@{/ct_keiyaku_002}" method="post">
+                <!-- 2020/07/31 发送put请求修改员工数据
+                    1、SpringMVC中配置了HiddenHttpMethodFilter；（SpringBoot自动配置好了的）
+                    2、页面创建一个Post表单
+                    3、创建一个input项，name="_method",value值就是我们指定的请求方式
+                                -->
+                <!--2020/07/31 在修改员工的模式下，添加修改的请求方式，注意 name="_mothod"👈必须带下划线 该input标签显示的条件是--👉th:if="${selectedemp!=null}" -->
+                <input type="hidden" name="_method" value="put" th:if="${selectedinfo!=null}"/>
+
+                <div class="form-group"><br> <label>システムID</label> <input name="sysId" type="text" class="form-control"
+                                                                          placeholder="システム自動採番、入力不可" readonly
+                                                                          th:value="${selectedinfo!=null}?${selectedinfo.sysId}">
+                </div>
+                <div class="form-group"><br> <label>自社鍵番号</label> <input name="jisyaKeyNo" type="text"
+                                                                         class="form-control"
+                                                                         placeholder="システム自動採番、入力不可" readonly
+                                                                         th:value="${selectedinfo!=null}?${selectedinfo.jisyaKeyNo}">
+                </div>
+                <div class="form-group"><br> <label>親鍵番号</label> <input name="oyaKeyNo" type="text" class="form-control"
+                                                                        placeholder="000-0000"
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.oyaKeyNo}">
+                </div>
+                <div class="form-group"><br> <label>物件管理番号</label> <input name="bukenMngNo" type="text"
+                                                                          class="form-control" placeholder=""
+                                                                          th:value="${selectedinfo!=null}?${selectedinfo.bukenMngNo}">
+                </div>
+                <div class="form-group"><br> <label>マスタキー有無</label>
+<!--                    <input name="masterKeyFlg" type="text"　class="form-control" placeholder="" th:value="${selectedinfo!=null}?${selectedinfo.masterKeyFlg}">-->
+
+                    <select class="form-control" name="masterKeyFlg">
+                        <option th:selected="${selectedinfo!=null}?${selectedinfo.masterKeyFlg}==${element.key}"
+                                th:each="element:${map_01}" th:value="${element.key}" th:utext="${element.value}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group"><br> <label>置場所（現地）</label> <input name="keyStorageNearApart" type="text"
+                                                                           class="form-control" placeholder=""
+                                                                           th:value="${selectedinfo!=null}?${selectedinfo.keyStorageNearApart}">
+                </div>
+                <div class="form-group"><br> <label>パスワード</label> <input name="keyPassword" type="text"
+                                                                         class="form-control" placeholder=""
+                                                                         th:value="${selectedinfo!=null}?${selectedinfo.keyPassword}">
+                </div>
+                <div class="form-group"><br> <label>置場所（社内）</label> <input name="keyStorageInCop" type="text"
+                                                                           class="form-control" placeholder=""
+                                                                           th:value="${selectedinfo!=null}?${selectedinfo.keyStorageInCop}">
+                </div>
+                <div class="form-group"><br> <label>メーカー</label> <input name="keyMaker" type="text" class="form-control"
+                                                                        placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.keyMaker}">
+                </div>
+                <div class="form-group"><br> <label>メーカー番号</label> <input name="keyMakerCode" type="text"
+                                                                          class="form-control" placeholder=""
+                                                                          th:value="${selectedinfo!=null}?${selectedinfo.keyMakerCode}">
+                </div>
+                <div class="form-group"><br> <label>用途区分</label>
+<!--                    <input name="keyUseFlg" type="text" class="form-control" placeholder="" th:value="${selectedinfo!=null}?${selectedinfo.keyUseFlg}">-->
+                    <select class="form-control" name="keyUseFlg">
+                        <option th:selected="${selectedinfo!=null}?${selectedinfo.keyUseFlg}==${element.key}"
+                                th:each="element:${map_02}" th:value="${element.key}" th:utext="${element.value}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group"><br> <label>鍵状態</label>
+<!--                    <input name="keyStatus" type="text" class="form-control"  placeholder="" th:value="${selectedinfo!=null}?${selectedinfo.keyStatus}">-->
+                    <select class="form-control" name="keyStatus">
+                        <option th:selected="${selectedinfo!=null}?${selectedinfo.keyStatus}==${element.key}"
+                                th:each="element:${map_03}" th:value="${element.key}" th:utext="${element.value}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group"><br> <label>持主</label> <input name="keyOwner" type="text" class="form-control"
+                                                                      placeholder=""
+                                                                      th:value="${selectedinfo!=null}?${selectedinfo.keyOwner}">
+                </div>
+                <div class="form-group"><br> <label>鍵タイプ</label>
+<!--                    <input name="keyType" type="text" class="form-control" placeholder="" th:value="${selectedinfo!=null}?${selectedinfo.keyType}">-->
+                    <select class="form-control" name="keyType">
+                        <option th:selected="${selectedinfo!=null}?${selectedinfo.keyType}==${element.key}"
+                                th:each="element:${map_04}" th:value="${element.key}" th:utext="${element.value}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group"><br> <label>入力者コード</label> <input name="tantoshaCode" type="text"
+                                                                          class="form-control" placeholder=""
+                                                                          th:value="${selectedinfo!=null}?${selectedinfo.tantoshaCode}">
+                </div>
+
+                <!--因为员工的添加和修改共同使用同一个页面，通过${selectedemp!=null}来判断，员工对象如果为null则是添加页面，如果员工不为null则是修改页面-->
+                <!--                <button type="submit" class="btn btn-primary" th:text="${selectedinfo!=null}?'修改':'添加'"></button>-->
+                <button type="submit" class="btn btn-primary" th:text="保存"></button>
+            </form>
+        </main>
+    </div>
+</div>
+</body>
+</html>

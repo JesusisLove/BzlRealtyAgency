@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+_于Mybatis的SQL文件映射_怎_写，我_要参照Mybatis的官方文档，官方文档都托管到了GitHub下
+我_就从GitHub网站去搜索MyBatis的相__料
+配置的参照例子
+https://mybatis.org/mybatis-3/getting-started.html
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.springboot04web.mapper.CtKeiyaku012Mapper">
+    <select id= "getInfoList" resultType="com.liu.springboot04web.bean.CtKeiyaku012Bean">
+        select * from bzl_hokencopmst
+    </select>
+    <select id= "getInfoById" resultType="com.liu.springboot04web.bean.CtKeiyaku012Bean">
+        select * from bzl_hokencopmst
+        where hosho_cop_mng_no = #{hoshoCopMngNo}
+    </select>
+    <update id="updateInfo">
+      update bzl_hokencopmst set
+        sys_id = #{sysId},
+        hosho_cop_mng_no = #{hoshoCopMngNo},
+        kaisya_name = #{kaisyaName},
+        post_code = #{postCode},
+        loaction1 = #{loaction1},
+        loaction2 = #{loaction2},
+        apart_name = #{apartName},
+        apart_code = #{apartCode},
+        kaisya_tel = #{kaisyaTel},
+        bank_account_mng_no = #{bankAccountMngNo},
+        gyomu_tantosha = #{gyomuTantosha},
+        tantosha_code = #{tantoshaCode}
+        where sys_id = #{sysId}
+          and hosho_cop_mng_no = #{hoshoCopMngNo}
+    </update>
+    <insert id="insertInfo" keyColumn="hosho_cop_mng_no">
+        insert into bzl_hokencopmst (
+            sys_id,
+            hosho_cop_mng_no,
+            kaisya_name,
+            post_code,
+            loaction1,
+            loaction2,
+            apart_name,
+            apart_code,
+            kaisya_tel,
+            bank_account_mng_no,
+            gyomu_tantosha,
+            tantosha_code
+         )
+        values (
+            #{sysId},
+            #{hoshoCopMngNo},
+            #{kaisyaName},
+            #{postCode},
+            #{loaction1},
+            #{loaction2},
+            #{apartName},
+            #{apartCode},
+            #{kaisyaTel},
+            #{bankAccountMngNo},
+            #{gyomuTantosha},
+            #{tantoshaCode}
+        )
+    </insert>
+    <delete id="deleteInfo">
+        delete from bzl_hokencopmst
+        where hosho_cop_mng_no = #{hoshoCopMngNo}
+    </delete>
+    <select id="getNextSequence" parameterType="map" statementType="CALLABLE">
+          {
+              #{parm_out,mode=OUT,jdbcType=INTEGER} = call nextval(#{parm_in,mode=IN})
+          }
+    </select>
+</mapper>

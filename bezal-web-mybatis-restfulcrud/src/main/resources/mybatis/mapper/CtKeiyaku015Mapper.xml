@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+_于Mybatis的SQL文件映射_怎_写，我_要参照Mybatis的官方文档，官方文档都托管到了GitHub下
+我_就从GitHub网站去搜索MyBatis的相__料
+配置的参照例子
+https://mybatis.org/mybatis-3/getting-started.html
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.springboot04web.mapper.CtKeiyaku015Mapper">
+    <select id= "getInfoList" resultType="com.liu.springboot04web.bean.CtKeiyaku015Bean">
+        select * from bzl_kazaihokenplanmst
+    </select>
+    <select id= "getInfoById" resultType="com.liu.springboot04web.bean.CtKeiyaku015Bean">
+        select * from bzl_kazaihokenplanmst
+        where kasai_plan_code = #{kasaiPlanCode}
+    </select>
+    <update id="updateInfo">
+      update bzl_kazaihokenplanmst set
+        sys_id = #{sysId},
+        kasai_plan_code = #{kasaiPlanCode},
+        kazaihoken_mng_no = #{kazaihokenMngNo},
+        plan_name = #{planName},
+        plan_price = #{planPrice},
+        kaizai_hoken_fee = #{kaizaiHokenFee},
+        tantosha_code = #{tantoshaCode}
+        where sys_id = #{sysId}
+          and kasai_plan_code = #{kasaiPlanCode}
+    </update>
+    <insert id="insertInfo" keyColumn="kasai_plan_code">
+        insert into bzl_kazaihokenplanmst (
+            sys_id,
+            kasai_plan_code,
+            kazaihoken_mng_no,
+            plan_name,
+            plan_price,
+            kaizai_hoken_fee,
+            tantosha_code
+         )
+        values (
+            #{sysId},
+            #{kasaiPlanCode},
+            #{kazaihokenMngNo},
+            #{planName},
+            #{planPrice},
+            #{kaizaiHokenFee},
+            #{tantoshaCode}
+        )
+    </insert>
+    <delete id="deleteInfo">
+        delete from bzl_kazaihokenplanmst
+        where kasai_plan_code = #{kasaiPlanCode}
+    </delete>
+    <select id="getNextSequence" parameterType="map" statementType="CALLABLE">
+          {
+              #{parm_out,mode=OUT,jdbcType=INTEGER} = call nextval(#{parm_in,mode=IN})
+          }
+    </select>
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+关于Mybatis的SQL文件映射该怎么写，我们要参照Mybatis的官方文档，官方文档都托管到了GitHub下
+我们就从GitHub网站去搜索MyBatis的相关资料
+配置的参照例子
+https://mybatis.org/mybatis-3/getting-started.html
+
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.springboot04web.mapper.CtKeiyaku002Mapper">
+    <select id="getInfoList" resultType="com.liu.springboot04web.bean.CtKeiyaku002Bean">
+	 select * from bzl_keymst
+	</select>
+
+    <select id="getInfoById" resultType="com.liu.springboot04web.bean.CtKeiyaku002Bean">
+		select * from bzl_keymst
+		where jisya_key_no = #{jisyaKeyNo}
+	</select>
+
+    <update id="updateInfo">
+		update bzl_keymst set
+			sys_id = #{sysId},
+			jisya_key_no = #{jisyaKeyNo},
+			oya_key_no = #{oyaKeyNo},
+			buken_mng_no = #{bukenMngNo},
+			master_key_flg = #{masterKeyFlg},
+			key_storage_near_apart = #{keyStorageNearApart},
+			key_password = #{keyPassword},
+			key_storage_in_cop = #{keyStorageInCop},
+			key_maker = #{keyMaker},
+			key_maker_code = #{keyMakerCode},
+			key_use_flg = #{keyUseFlg},
+			key_status = #{keyStatus},
+			key_owner = #{keyOwner},
+			key_type = #{keyType},
+			tantosha_code = #{tantoshaCode}
+		where	sys_id = #{sysId}
+		and	jisya_key_no = #{jisyaKeyNo}
+	</update>
+
+    <insert id="insertInfo" keyColumn="jisya_key_no">
+		insert into bzl_keymst (
+			sys_id,
+			jisya_key_no,
+			oya_key_no,
+			buken_mng_no,
+			master_key_flg,
+			key_storage_near_apart,
+			key_password,
+			key_storage_in_cop,
+			key_maker,
+			key_maker_code,
+			key_use_flg,
+			key_status,
+			key_owner,
+			key_type,
+			tantosha_code
+		)
+		values (
+			#{sysId},
+			#{jisyaKeyNo},
+			#{oyaKeyNo},
+			#{bukenMngNo},
+			#{masterKeyFlg},
+			#{keyStorageNearApart},
+			#{keyPassword},
+			#{keyStorageInCop},
+			#{keyMaker},
+			#{keyMakerCode},
+			#{keyUseFlg},
+			#{keyStatus},
+			#{keyOwner},
+			#{keyType},
+			#{tantoshaCode}
+		)
+	</insert>
+
+    <delete id="deleteInfo">
+	delete from bzl_keymst
+	where jisya_key_no = #{jisyaKeyNo}
+
+	</delete>
+
+		<select id="getNextSequence" parameterType="map" statementType="CALLABLE">
+	{
+	#{parm_out,mode=OUT,jdbcType=INTEGER} = call nextval(#{parm_in,mode=IN})
+	}
+	</select>
+</mapper>

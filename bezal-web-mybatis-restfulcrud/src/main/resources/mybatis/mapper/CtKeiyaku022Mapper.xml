@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+_于Mybatis的SQL文件映射_怎_写，我_要参照Mybatis的官方文档，官方文档都托管到了GitHub下
+我_就从GitHub网站去搜索MyBatis的相__料
+配置的参照例子
+https://mybatis.org/mybatis-3/getting-started.html
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.springboot04web.mapper.CtKeiyaku022Mapper">
+    <select id= "getInfoList" resultType="com.liu.springboot04web.bean.CtKeiyaku022Bean">
+        select * from bzl_ikoukininfo
+    </select>
+    <select id= "getInfoById" resultType="com.liu.springboot04web.bean.CtKeiyaku022Bean">
+        select * from bzl_ikoukininfo
+        where ikoukin_mng_no = #{ikoukinMngNo}
+    </select>
+    <update id="updateInfo">
+      update bzl_ikoukininfo set
+        sys_id = #{sysId},
+        ikoukin_mng_no = #{ikoukinMngNo},
+        kingaku = #{kingaku},
+        pay_type = #{payType},
+        refund_zumi_flg = #{refundZumiFlg},
+        currency_type = #{currencyType},
+        gyomu_tantosha = #{gyomuTantosha},
+        buken_mng_no = #{bukenMngNo},
+        time_stamp_new = #{timeStampNew},
+        time_stamp_update = #{timeStampUpdate},
+        tantosha_code = #{tantoshaCode}
+        where sys_id = #{sysId}
+          and ikoukin_mng_no = #{ikoukinMngNo}
+    </update>
+    <insert id="insertInfo" keyColumn="ikoukin_mng_no">
+        insert into bzl_ikoukininfo (
+            sys_id,
+            ikoukin_mng_no,
+            kingaku,
+            pay_type,
+            refund_zumi_flg,
+            currency_type,
+            gyomu_tantosha,
+            buken_mng_no,
+            time_stamp_new,
+            time_stamp_update,
+            tantosha_code
+         )
+        values (
+            #{sysId},
+            #{ikoukinMngNo},
+            #{kingaku},
+            #{payType},
+            #{refundZumiFlg},
+            #{currencyType},
+            #{gyomuTantosha},
+            #{bukenMngNo},
+            #{timeStampNew},
+            #{timeStampUpdate},
+            #{tantoshaCode}
+        )
+    </insert>
+    <delete id="deleteInfo">
+        delete from bzl_ikoukininfo
+        where ikoukin_mng_no = #{ikoukinMngNo}
+    </delete>
+    <select id="getNextSequence" parameterType="map" statementType="CALLABLE">
+          {
+              #{parm_out,mode=OUT,jdbcType=INTEGER} = call nextval(#{parm_in,mode=IN})
+          }
+    </select>
+</mapper>

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>Dashboard Template _ Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+
+    <link href="../assets/dist/css/bootstrap.css" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.css}"
+          rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <link href="dashboard.css" th:href="@{/dashboard/dashboard.css}" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{commons/bar::topbar}"></div><!-- thymeleaf 公共片段的抽取和引用：在此引用抽取的片段 -->
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/bar::sidebar(activeUri='ct_keiyaku_010_link_active')}"></div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <form th:action="@{/ct_keiyaku_010}" method="post">
+                <input type="hidden" name="_method" value="put" th:if="${selectedinfo!=null}"/>
+
+                <div class="form-group"><br> <label>システムID</label> <input name="sysId" type="text" class="form-control"
+                                                                          placeholder="システム自動採番、入力不可" readonly
+                                                                          th:value="${selectedinfo!=null}?${selectedinfo.sysId}">
+                </div>
+                <div class="form-group"><br> <label>案件管理番号</label> <input name="ankenMngNo" type="text"
+                                                                          class="form-control"
+                                                                          placeholder="システム自動採番、入力不可" readonly
+                                                                          th:value="${selectedinfo!=null}?${selectedinfo.ankenMngNo}">
+                </div>
+                <div class="form-group"><br> <label>契約成立日</label> <input name="keiyakuSignDate" type="text"
+                                                                         class="form-control" placeholder="000-0000"
+                                                                         th:value="${selectedinfo!=null}?${#dates.format(selectedinfo.keiyakuSignDate,'yyyy/MM/dd')}">
+                </div>
+                <div class="form-group"><br> <label>契約担当者</label> <input name="keiyakuTantosha" type="text"
+                                                                         class="form-control" placeholder=""
+                                                                         th:value="${selectedinfo!=null}?${selectedinfo.keiyakuTantosha}">
+                </div>
+                <div class="form-group"><br> <label>契約者管理番号</label> <input name="keiyakuMngNo" type="text"
+                                                                           class="form-control" placeholder=""
+                                                                           th:value="${selectedinfo!=null}?${selectedinfo.keiyakuMngNo}">
+                </div>
+                <div class="form-group"><br> <label>物件管理会社管理番号</label> <input name="bukenMngCopNo" type="text"
+                                                                              class="form-control" placeholder=""
+                                                                              th:value="${selectedinfo!=null}?${selectedinfo.bukenMngCopNo}">
+                </div>
+                <div class="form-group"><br> <label>物件管理番号</label> <input name="bukenMngNo" type="text"
+                                                                          class="form-control" placeholder=""
+                                                                          th:value="${selectedinfo!=null}?${selectedinfo.bukenMngNo}">
+                </div>
+                <div class="form-group"><br> <label>契約開始期間</label> <input name="keiyakuStartDate" type="text"
+                                                                          class="form-control" placeholder=""
+                                                                          th:value="${selectedinfo!=null}?${#dates.format(selectedinfo.keiyakuStartDate,'yyyy/MM/dd')}">
+                </div>
+                <div class="form-group"><br> <label>契約終了期間</label> <input name="keiyakuEndDate" type="text"
+                                                                          class="form-control" placeholder=""
+                                                                          th:value="${selectedinfo!=null}?${#dates.format(selectedinfo.keiyakuEndDate,'yyyy/MM/dd')}">
+                </div>
+                <div class="form-group"><br> <label>更新料金</label> <input name="updateFee" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.updateFee}">
+                </div>
+                <div class="form-group"><br> <label>更新手数料</label> <input name="updateTesuFee" type="text"
+                                                                         class="form-control" placeholder=""
+                                                                         th:value="${selectedinfo!=null}?${selectedinfo.updateTesuFee}">
+                </div>
+                <div class="form-group"><br> <label>解約予告</label> <input name="terminateNotice" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.terminateNotice}">
+                </div>
+                <div class="form-group"><br> <label>個人法人区分</label>
+<!--                    <input name="kojinHojinFlg" type="text"　class="form-control" placeholder="" th:value="${selectedinfo!=null}?${selectedinfo.kojinHojinFlg}">-->
+                    <select class="form-control" name="kojinHojinFlg">
+                        <option th:selected="${selectedinfo!=null}?${selectedinfo.kojinHojinFlg}==${element.key}"
+                                th:each="element:${map_01}" th:value="${element.key}" th:utext="${element.value}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group"><br> <label>保証会社管理番号</label> <input name="hoshoCopMngNo" type="text"
+                                                                            class="form-control" placeholder=""
+                                                                            th:value="${selectedinfo!=null}?${selectedinfo.hoshoCopMngNo}">
+                </div>
+                <div class="form-group"><br> <label>保証会社プランコード</label> <input name="hokenPlanCode" type="text"
+                                                                              class="form-control" placeholder=""
+                                                                              th:value="${selectedinfo!=null}?${selectedinfo.hokenPlanCode}">
+                </div>
+                <div class="form-group"><br> <label>保証人管理番号</label> <input name="hoshoshaMngNo" type="text"
+                                                                           class="form-control" placeholder=""
+                                                                           th:value="${selectedinfo!=null}?${selectedinfo.hoshoshaMngNo}">
+                </div>
+                <div class="form-group"><br> <label>振込時期</label> <input name="furikomiJiki" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.furikomiJiki}">
+                </div>
+                <div class="form-group"><br> <label>振込日</label> <input name="furikomiDate" type="text"
+                                                                       class="form-control" placeholder=""
+                                                                       th:value="${selectedinfo!=null}?${#dates.format(selectedinfo.furikomiDate,'yyyy/MM/dd')}">
+                </div>
+                <div class="form-group"><br> <label>家財保険更新有無</label> <input name="hokenUpdateFlg" type="text"
+                                                                            class="form-control" placeholder=""
+                                                                            th:value="${selectedinfo!=null}?${selectedinfo.hokenUpdateFlg}">
+                </div>
+                <div class="form-group"><br> <label>仲介会社管理番号</label> <input name="chukaiCopMngNo" type="text"
+                                                                            class="form-control" placeholder=""
+                                                                            th:value="${selectedinfo!=null}?${selectedinfo.chukaiCopMngNo}">
+                </div>
+                <div class="form-group"><br> <label>家財保険管理番号</label> <input name="kazaihokenMngNo" type="text"
+                                                                            class="form-control" placeholder=""
+                                                                            th:value="${selectedinfo!=null}?${selectedinfo.kazaihokenMngNo}">
+                </div>
+                <div class="form-group"><br> <label>家財保険プランコード</label> <input name="kasaiPlanCode" type="text"
+                                                                              class="form-control" placeholder=""
+                                                                              th:value="${selectedinfo!=null}?${selectedinfo.kasaiPlanCode}">
+                </div>
+                <div class="form-group"><br> <label>ガス会社</label> <input name="gasCop" type="text" class="form-control"
+                                                                        placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.gasCop}">
+                </div>
+                <div class="form-group"><br> <label>電気会社</label> <input name="denkiCop" type="text" class="form-control"
+                                                                        placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.denkiCop}">
+                </div>
+                <div class="form-group"><br> <label>水道会社</label> <input name="suidoCop" type="text" class="form-control"
+                                                                        placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.suidoCop}">
+                </div>
+                <div class="form-group"><br> <label>紹介人管理番号</label> <input name="shokaishaMngNo" type="text"
+                                                                           class="form-control" placeholder=""
+                                                                           th:value="${selectedinfo!=null}?${selectedinfo.shokaishaMngNo}">
+                </div>
+                <div class="form-group"><br> <label>更新回数</label> <input name="koushinKaisu" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.koushinKaisu}">
+                </div>
+                <div class="form-group"><br> <label>入居者１</label> <input name="resident1" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.resident1}">
+                </div>
+                <div class="form-group"><br> <label>入居者２</label> <input name="resident2" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.resident2}">
+                </div>
+                <div class="form-group"><br> <label>入居者３</label> <input name="resident3" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.resident3}">
+                </div>
+                <div class="form-group"><br> <label>入居者４</label> <input name="resident4" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.resident4}">
+                </div>
+                <div class="form-group"><br> <label>入居者５</label> <input name="resident5" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.resident5}">
+                </div>
+                <div class="form-group"><br> <label>入居者６</label> <input name="resident6" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.resident6}">
+                </div>
+                <div class="form-group"><br> <label>入居者７</label> <input name="resident7" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.resident7}">
+                </div>
+                <div class="form-group"><br> <label>入居者８</label> <input name="resident8" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.resident8}">
+                </div>
+                <div class="form-group"><br> <label>入居者９</label> <input name="resident9" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.resident9}">
+                </div>
+                <div class="form-group"><br> <label>入居者１０</label> <input name="resident10" type="text"
+                                                                         class="form-control" placeholder=""
+                                                                         th:value="${selectedinfo!=null}?${selectedinfo.resident10}">
+                </div>
+                <div class="form-group"><br> <label>入力者コード</label> <input name="tantoshaCode" type="text"
+                                                                          class="form-control" placeholder=""
+                                                                          th:value="${selectedinfo!=null}?${selectedinfo.tantoshaCode}">
+                </div>
+                <div class="form-group"><br> <label>賃貸料金</label> <input name="rentFee" type="text" class="form-control"
+                                                                        placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.rentFee}">
+                </div>
+                <div class="form-group"><br> <label>礼金</label> <input name="reikin" type="text" class="form-control"
+                                                                      placeholder=""
+                                                                      th:value="${selectedinfo!=null}?${selectedinfo.reikin}">
+                </div>
+                <div class="form-group"><br> <label>敷金</label> <input name="shikikin" type="text" class="form-control"
+                                                                      placeholder=""
+                                                                      th:value="${selectedinfo!=null}?${selectedinfo.shikikin}">
+                </div>
+                <div class="form-group"><br> <label>広告宣伝費</label> <input name="koukokuFee" type="text"
+                                                                         class="form-control" placeholder=""
+                                                                         th:value="${selectedinfo!=null}?${selectedinfo.koukokuFee}">
+                </div>
+                <div class="form-group"><br> <label>仲介手数料</label> <input name="chukaiFee" type="text"
+                                                                         class="form-control" placeholder=""
+                                                                         th:value="${selectedinfo!=null}?${selectedinfo.chukaiFee}">
+                </div>
+                <div class="form-group"><br> <label>契約作成費用</label> <input name="keiyakuFee" type="text"
+                                                                          class="form-control" placeholder=""
+                                                                          th:value="${selectedinfo!=null}?${selectedinfo.keiyakuFee}">
+                </div>
+                <div class="form-group"><br> <label>鍵交換費</label> <input name="kagiChangeFee" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.kagiChangeFee}">
+                </div>
+                <div class="form-group"><br> <label>クリーニング代</label> <input name="houseCleaningFee" type="text"
+                                                                           class="form-control" placeholder=""
+                                                                           th:value="${selectedinfo!=null}?${selectedinfo.houseCleaningFee}">
+                </div>
+
+                <button type="submit" class="btn btn-primary" th:text="保存"></button>
+            </form>
+        </main>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+_于Mybatis的SQL文件映射_怎_写，我_要参照Mybatis的官方文档，官方文档都托管到了GitHub下
+我_就从GitHub网站去搜索MyBatis的相__料
+配置的参照例子
+https://mybatis.org/mybatis-3/getting-started.html
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.springboot04web.mapper.CtKeiyaku013Mapper">
+    <select id= "getInfoList" resultType="com.liu.springboot04web.bean.CtKeiyaku013Bean">
+        select * from bzl_hokenplanmst
+    </select>
+    <select id= "getInfoById" resultType="com.liu.springboot04web.bean.CtKeiyaku013Bean">
+        select * from bzl_hokenplanmst
+        where hoken_plan_code = #{hokenPlanCode}
+    </select>
+    <update id="updateInfo">
+      update bzl_hokenplanmst set
+        sys_id = #{sysId},
+        hoken_plan_code = #{hokenPlanCode},
+        hosho_cop_mng_no = #{hoshoCopMngNo},
+        plan_name = #{planName},
+        plan_price = #{planPrice},
+        first_hosho_fee = #{firstHoshoFee},
+        year_hosho_fee = #{yearHoshoFee},
+        month_hosho_fee = #{monthHoshoFee},
+        hoshou_hoken_fee = #{hoshouHokenFee},
+        tantosha_code = #{tantoshaCode}
+        where sys_id = #{sysId}
+          and hoken_plan_code = #{hokenPlanCode}
+    </update>
+    <insert id="insertInfo" keyColumn="hoken_plan_code">
+        insert into bzl_hokenplanmst (
+            sys_id,
+            hoken_plan_code,
+            hosho_cop_mng_no,
+            plan_name,
+            plan_price,
+            first_hosho_fee,
+            year_hosho_fee,
+            month_hosho_fee,
+            hoshou_hoken_fee,
+            tantosha_code
+         )
+        values (
+            #{sysId},
+            #{hokenPlanCode},
+            #{hoshoCopMngNo},
+            #{planName},
+            #{planPrice},
+            #{firstHoshoFee},
+            #{yearHoshoFee},
+            #{monthHoshoFee},
+            #{hoshouHokenFee},
+            #{tantoshaCode}
+        )
+    </insert>
+    <delete id="deleteInfo">
+        delete from bzl_hokenplanmst
+        where hoken_plan_code = #{hokenPlanCode}
+    </delete>
+    <select id="getNextSequence" parameterType="map" statementType="CALLABLE">
+          {
+              #{parm_out,mode=OUT,jdbcType=INTEGER} = call nextval(#{parm_in,mode=IN})
+          }
+    </select>
+</mapper>

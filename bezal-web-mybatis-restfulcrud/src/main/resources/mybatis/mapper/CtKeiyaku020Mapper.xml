@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+_于Mybatis的SQL文件映射_怎_写，我_要参照Mybatis的官方文档，官方文档都托管到了GitHub下
+我_就从GitHub网站去搜索MyBatis的相__料
+配置的参照例子
+https://mybatis.org/mybatis-3/getting-started.html
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.springboot04web.mapper.CtKeiyaku020Mapper">
+    <select id= "getInfoList" resultType="com.liu.springboot04web.bean.CtKeiyaku020Bean">
+        select * from bzl_kinmusakimst
+    </select>
+    <select id= "getInfoById" resultType="com.liu.springboot04web.bean.CtKeiyaku020Bean">
+        select * from bzl_kinmusakimst
+        where kinmu_mng_no = #{kinmuMngNo}
+    </select>
+    <update id="updateInfo">
+      update bzl_kinmusakimst set
+        sys_id = #{sysId},
+        kinmu_mng_no = #{kinmuMngNo},
+        kinmu_name = #{kinmuName},
+        post_code = #{postCode},
+        loaction1 = #{loaction1},
+        loaction2 = #{loaction2},
+        apart_name = #{apartName},
+        apart_code = #{apartCode},
+        kinmu_tel = #{kinmuTel},
+        tantosha_code = #{tantoshaCode}
+        where sys_id = #{sysId}
+          and kinmu_mng_no = #{kinmuMngNo}
+    </update>
+    <insert id="insertInfo" keyColumn="kinmu_mng_no">
+        insert into bzl_kinmusakimst (
+            sys_id,
+            kinmu_mng_no,
+            kinmu_name,
+            post_code,
+            loaction1,
+            loaction2,
+            apart_name,
+            apart_code,
+            kinmu_tel,
+            tantosha_code
+         )
+        values (
+            #{sysId},
+            #{kinmuMngNo},
+            #{kinmuName},
+            #{postCode},
+            #{loaction1},
+            #{loaction2},
+            #{apartName},
+            #{apartCode},
+            #{kinmuTel},
+            #{tantoshaCode}
+        )
+    </insert>
+    <delete id="deleteInfo">
+        delete from bzl_kinmusakimst
+        where kinmu_mng_no = #{kinmuMngNo}
+    </delete>
+    <select id="getNextSequence" parameterType="map" statementType="CALLABLE">
+          {
+              #{parm_out,mode=OUT,jdbcType=INTEGER} = call nextval(#{parm_in,mode=IN})
+          }
+    </select>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+_于Mybatis的SQL文件映射_怎_写，我_要参照Mybatis的官方文档，官方文档都托管到了GitHub下
+我_就从GitHub网站去搜索MyBatis的相__料
+配置的参照例子
+https://mybatis.org/mybatis-3/getting-started.html
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.springboot04web.mapper.CtKeiyaku017Mapper">
+    <select id= "getInfoList" resultType="com.liu.springboot04web.bean.CtKeiyaku017Bean">
+        select * from bzl_choukaisyamst
+    </select>
+    <select id= "getInfoById" resultType="com.liu.springboot04web.bean.CtKeiyaku017Bean">
+        select * from bzl_choukaisyamst
+        where shokaisha_mng_no = #{shokaishaMngNo}
+    </select>
+    <update id="updateInfo">
+      update bzl_choukaisyamst set
+        sys_id = #{sysId},
+        shokaisha_mng_no = #{shokaishaMngNo},
+        fullname = #{fullname},
+        fullname_kana = #{fullnameKana},
+        gender = #{gender},
+        birth_day = #{birthDay},
+        tel_number = #{telNumber},
+        email = #{email},
+        post_code = #{postCode},
+        loaction1 = #{loaction1},
+        loaction2 = #{loaction2},
+        apart_name = #{apartName},
+        apart_code = #{apartCode},
+        bank_account_mng_no = #{bankAccountMngNo},
+        tantosha_code = #{tantoshaCode}
+        where sys_id = #{sysId}
+          and shokaisha_mng_no = #{shokaishaMngNo}
+    </update>
+    <insert id="insertInfo" keyColumn="shokaisha_mng_no">
+        insert into bzl_choukaisyamst (
+            sys_id,
+            shokaisha_mng_no,
+            fullname,
+            fullname_kana,
+            gender,
+            birth_day,
+            tel_number,
+            email,
+            post_code,
+            loaction1,
+            loaction2,
+            apart_name,
+            apart_code,
+            bank_account_mng_no,
+            tantosha_code
+         )
+        values (
+            #{sysId},
+            #{shokaishaMngNo},
+            #{fullname},
+            #{fullnameKana},
+            #{gender},
+            #{birthDay},
+            #{telNumber},
+            #{email},
+            #{postCode},
+            #{loaction1},
+            #{loaction2},
+            #{apartName},
+            #{apartCode},
+            #{bankAccountMngNo},
+            #{tantoshaCode}
+        )
+    </insert>
+    <delete id="deleteInfo">
+        delete from bzl_choukaisyamst
+        where shokaisha_mng_no = #{shokaishaMngNo}
+    </delete>
+    <select id="getNextSequence" parameterType="map" statementType="CALLABLE">
+          {
+              #{parm_out,mode=OUT,jdbcType=INTEGER} = call nextval(#{parm_in,mode=IN})
+          }
+    </select>
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+_于Mybatis的SQL文件映射_怎_写，我_要参照Mybatis的官方文档，官方文档都托管到了GitHub下
+我_就从GitHub网站去搜索MyBatis的相__料
+配置的参照例子
+https://mybatis.org/mybatis-3/getting-started.html
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.springboot04web.mapper.CtKeiyaku014Mapper">
+    <select id= "getInfoList" resultType="com.liu.springboot04web.bean.CtKeiyaku014Bean">
+        select * from bzl_kazaihokencopmst
+    </select>
+    <select id= "getInfoById" resultType="com.liu.springboot04web.bean.CtKeiyaku014Bean">
+        select * from bzl_kazaihokencopmst
+        where kazaihoken_mng_no = #{kazaihokenMngNo}
+    </select>
+    <update id="updateInfo">
+      update bzl_kazaihokencopmst set
+        sys_id = #{sysId},
+        kazaihoken_mng_no = #{kazaihokenMngNo},
+        kazai_hoken_no = #{kazaiHokenNo},
+        kazai_hoken_period = #{kazaiHokenPeriod},
+        post_code = #{postCode},
+        loaction1 = #{loaction1},
+        loaction2 = #{loaction2},
+        apart_name = #{apartName},
+        apart_code = #{apartCode},
+        gyomu_tantosha = #{gyomuTantosha},
+        tantosha_code = #{tantoshaCode}
+        where sys_id = #{sysId}
+          and kazaihoken_mng_no = #{kazaihokenMngNo}
+    </update>
+    <insert id="insertInfo" keyColumn="kazaihoken_mng_no">
+        insert into bzl_kazaihokencopmst (
+            sys_id,
+            kazaihoken_mng_no,
+            kazai_hoken_no,
+            kazai_hoken_period,
+            post_code,
+            loaction1,
+            loaction2,
+            apart_name,
+            apart_code,
+            gyomu_tantosha,
+            tantosha_code
+         )
+        values (
+            #{sysId},
+            #{kazaihokenMngNo},
+            #{kazaiHokenNo},
+            #{kazaiHokenPeriod},
+            #{postCode},
+            #{loaction1},
+            #{loaction2},
+            #{apartName},
+            #{apartCode},
+            #{gyomuTantosha},
+            #{tantoshaCode}
+        )
+    </insert>
+    <delete id="deleteInfo">
+        delete from bzl_kazaihokencopmst
+        where kazaihoken_mng_no = #{kazaihokenMngNo}
+    </delete>
+    <select id="getNextSequence" parameterType="map" statementType="CALLABLE">
+          {
+              #{parm_out,mode=OUT,jdbcType=INTEGER} = call nextval(#{parm_in,mode=IN})
+          }
+    </select>
+</mapper>

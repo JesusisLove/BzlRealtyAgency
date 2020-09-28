@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>Dashboard Template _ Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+    <!-- Bootstrap core CSS -->
+    <!--<link href="../assets/dist/css/bootstrap.css" rel="stylesheet">-->
+    <link href="../assets/dist/css/bootstrap.css" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.css}" rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" th:href="@{/dashboard/dashboard.css}"  rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{commons/bar::topbar}"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/bar::sidebar(activeUri='ct_keiyaku_010_link_active')}"></div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <hr/>
+            <h2><a class="btn btn-sm btn-success" th:href="@{/ct_keiyaku_010}">賃貸契約新規</a></h2>
+            <hr/>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>システムID</th>
+                        <th>案件管理番号</th>
+                        <th>契約成立日</th>
+                        <th>契約担当者</th>
+                        <th>契約者管理番号</th>
+                        <th>物件管理会社管理番号</th>
+                        <th>物件管理番号</th>
+                        <th>契約開始期間</th>
+                        <th>契約終了期間</th>
+                        <th>更新料金</th>
+                        <th>更新手数料</th>
+                        <th>解約予告</th>
+                        <th>個人法人区分</th>
+                        <th>保証会社管理番号</th>
+                        <th>保証会社プランコード</th>
+                        <th>保証人管理番号</th>
+                        <th>振込時期</th>
+                        <th>振込日</th>
+                        <th>家財保険更新有無</th>
+                        <th>仲介会社管理番号</th>
+                        <th>家財保険管理番号</th>
+                        <th>家財保険プランコード</th>
+                        <th>ガス会社</th>
+                        <th>電気会社</th>
+                        <th>水道会社</th>
+                        <th>紹介人管理番号</th>
+                        <th>更新回数</th>
+                        <th>入居者１</th>
+                        <th>入居者２</th>
+                        <th>入居者３</th>
+                        <th>入居者４</th>
+                        <th>入居者５</th>
+                        <th>入居者６</th>
+                        <th>入居者７</th>
+                        <th>入居者８</th>
+                        <th>入居者９</th>
+                        <th>入居者１０</th>
+                        <th>入力者コード</th>
+                        <th>賃貸料金</th>
+                        <th>礼金</th>
+                        <th>敷金</th>
+                        <th>広告宣伝費</th>
+                        <th>仲介手数料</th>
+                        <th>契約作成費用</th>
+                        <th>鍵交換費</th>
+                        <th>クリーニング代</th>
+                        <th>タイムスタンプ（登録）</th>
+                        <th>タイムスタンプ（更新）</th>
+                        <th>倫理削除フラグ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="info:${infoList}">
+                        <td>[[${info.sysId}]]</td>
+                        <td>[[${info.ankenMngNo}]]</td>
+                        <td>[[${#dates.format(info.keiyakuSignDate,'yyyy/MM/dd')}]]</td>
+                        <td>[[${info.keiyakuTantosha}]]</td>
+                        <td>[[${info.keiyakuMngNo}]]</td>
+                        <td>[[${info.bukenMngCopNo}]]</td>
+                        <td>[[${info.bukenMngNo}]]</td>
+                        <td>[[${#dates.format(info.keiyakuStartDate,'yyyy/MM/dd')}]]</td>
+                        <td>[[${#dates.format(info.keiyakuEndDate,'yyyy/MM/dd')}]]</td>
+                        <td>[[${info.updateFee}]]</td>
+                        <td>[[${info.updateTesuFee}]]</td>
+                        <td>[[${info.terminateNotice}]]</td>
+                        <td>[[${info.kojinHojinFlg}]]</td>
+                        <td>[[${info.hoshoCopMngNo}]]</td>
+                        <td>[[${info.hokenPlanCode}]]</td>
+                        <td>[[${info.hoshoshaMngNo}]]</td>
+                        <td>[[${info.furikomiJiki}]]</td>
+                        <td>[[${#dates.format(info.furikomiDate,'yyyy/MM/dd')}]]</td>
+                        <td>[[${info.hokenUpdateFlg}]]</td>
+                        <td>[[${info.chukaiCopMngNo}]]</td>
+                        <td>[[${info.kazaihokenMngNo}]]</td>
+                        <td>[[${info.kasaiPlanCode}]]</td>
+                        <td>[[${info.gasCop}]]</td>
+                        <td>[[${info.denkiCop}]]</td>
+                        <td>[[${info.suidoCop}]]</td>
+                        <td>[[${info.shokaishaMngNo}]]</td>
+                        <td>[[${info.koushinKaisu}]]</td>
+                        <td>[[${info.resident1}]]</td>
+                        <td>[[${info.resident2}]]</td>
+                        <td>[[${info.resident3}]]</td>
+                        <td>[[${info.resident4}]]</td>
+                        <td>[[${info.resident5}]]</td>
+                        <td>[[${info.resident6}]]</td>
+                        <td>[[${info.resident7}]]</td>
+                        <td>[[${info.resident8}]]</td>
+                        <td>[[${info.resident9}]]</td>
+                        <td>[[${info.resident10}]]</td>
+                        <td>[[${info.tantoshaCode}]]</td>
+                        <td>[[${info.rentFee}]]</td>
+                        <td>[[${info.reikin}]]</td>
+                        <td>[[${info.shikikin}]]</td>
+                        <td>[[${info.koukokuFee}]]</td>
+                        <td>[[${info.chukaiFee}]]</td>
+                        <td>[[${info.keiyakuFee}]]</td>
+                        <td>[[${info.kagiChangeFee}]]</td>
+                        <td>[[${info.houseCleaningFee}]]</td>
+                        <td>[[${#dates.format(info.timeStampNew,'yyyy/MM/dd hh:mm:ss')}]]</td>
+                        <td>[[${#dates.format(info.timeStampUpdate,'yyyy/MM/dd hh:mm:ss')}]]</td>
+                        <td>[[${info.delFlg}]]</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" th:href="@{/ct_keiyaku_010/}+${info.ankenMngNo}" methods="GET">変更</a> <button class="btn btn-sm btn-danger deleteBtn" th:attr="liu_del_uri=@{/ct_keiyaku_010/}+${info.ankenMngNo}">削除</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        <!-- 削除処理-->
+        <form id="deleteEmpForm" action="" method="post">
+            <input type="hidden" name="_method" value="Delete"/>
+        </form>
+    </div>
+</div>
+<!--Bootstrap core JavaScrip
+=============================-->
+<script type="text/javascript" th:src="@{/webjars/jquery/3.5.1/jquery.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+
+<!-- Icons -->
+
+<!-- 削除プロセスには、JSで削除ボタンのクリックイベントで実現する-->
+<script>
+    $(".deleteBtn").click(function() {
+        //thisが削除ボタンである
+        let del_uri = $(this).attr("liu_del_uri");
+        alert("-------delete-------" + del_uri);
+        //対象フォームのsubmitを実行する
+        $("#deleteEmpForm").attr("action",del_uri).submit();
+        return false;
+    });
+</script>
+</body>
+</html>

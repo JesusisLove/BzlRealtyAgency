@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>Dashboard Template _ Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+
+    <link href="../assets/dist/css/bootstrap.css" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.css}"
+          rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <link href="dashboard.css" th:href="@{/dashboard/dashboard.css}" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{commons/bar::topbar}"></div><!-- thymeleaf 公共片段的抽取和引用：在此引用抽取的片段 -->
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/bar::sidebar(activeUri='ct_keiyaku_001_link_active')}"></div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <form th:action="@{/ct_keiyaku_001}" method="post">
+                <input type="hidden" name="_method" value="put" th:if="${selectedinfo!=null}"/>
+
+                <div class="form-group"><br> <label>システムID</label> <input name="sysId" type="text" class="form-control"
+                                                                          placeholder="システム自動採番、入力不可" readonly
+                                                                          th:value="${selectedinfo!=null}?${selectedinfo.sysId}">
+                </div>
+                <div class="form-group"><br> <label>物件管理番号</label> <input name="bukenMngNo" type="text"
+                                                                          class="form-control"
+                                                                          placeholder="システム自動採番、入力不可" readonly
+                                                                          th:value="${selectedinfo!=null}?${selectedinfo.bukenMngNo}">
+                </div>
+                <div class="form-group"><br> <label>郵便番号</label> <input name="postCode" type="text" class="form-control"
+                                                                        placeholder="000-0000"
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.postCode}">
+                </div>
+                <div class="form-group"><br> <label>所在地１</label> <input name="loaction1" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.loaction1}">
+                </div>
+                <div class="form-group"><br> <label>所在地２</label> <input name="loaction2" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.loaction2}">
+                </div>
+                <div class="form-group"><br> <label>マンション名</label> <input name="apartName" type="text"
+                                                                          class="form-control" placeholder=""
+                                                                          th:value="${selectedinfo!=null}?${selectedinfo.apartName}">
+                </div>
+                <div class="form-group"><br> <label>部屋番号</label> <input name="apartCode" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.apartCode}">
+                </div>
+                <div class="form-group"><br> <label>構造</label> <input name="apartStructor" type="text"
+                                                                      class="form-control" placeholder=""
+                                                                      th:value="${selectedinfo!=null}?${selectedinfo.apartStructor}">
+                </div>
+                <div class="form-group"><br> <label>間取り</label> <input name="apartWood" type="text" class="form-control"
+                                                                       placeholder=""
+                                                                       th:value="${selectedinfo!=null}?${selectedinfo.apartWood}">
+                </div>
+                <div class="form-group"><br> <label>面積</label> <input name="apartArea" type="text" class="form-control"
+                                                                      placeholder=""
+                                                                      th:value="${selectedinfo!=null}?${selectedinfo.apartArea}">
+                </div>
+                <div class="form-group"><label>用途</label>
+                    <select class="form-control" name="apartForUse">
+                        <option th:selected="${selectedinfo!=null}?${selectedinfo.apartForUse}==${element.key}"
+                                th:each="element:${map_01}" th:value="${element.key}" th:utext="${element.value}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group"><br> <label>管理費用</label> <input name="apartMngFee" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.apartMngFee}">
+                </div>
+                <div class="form-group"><br> <label>日勤管理会社管理番号</label> <input name="daytimeMngCopMngNo" type="text"
+                                                                              class="form-control" placeholder=""
+                                                                              th:value="${selectedinfo!=null}?${selectedinfo.daytimeMngCopMngNo}">
+                </div>
+                <div class="form-group"><br> <label>鍵交換代</label> <input name="keySwitchFee" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.keySwitchFee}">
+                </div>
+                <div class="form-group"><br> <label>抗菌施工費</label> <input name="antiBctrilConstrucFee" type="text"
+                                                                         class="form-control" placeholder=""
+                                                                         th:value="${selectedinfo!=null}?${selectedinfo.antiBctrilConstrucFee}">
+                </div>
+                <div class="form-group"><br> <label>安心サポート費</label> <input name="peaceSupportFee" type="text"
+                                                                           class="form-control" placeholder=""
+                                                                           th:value="${selectedinfo!=null}?${selectedinfo.peaceSupportFee}">
+                </div>
+                <div class="form-group"><br> <label>賃貸料金</label> <input name="rentFee" type="text" class="form-control"
+                                                                        placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.rentFee}">
+                </div>
+                <div class="form-group"><br> <label>許容人数</label> <input name="allowLiveNum" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.allowLiveNum}">
+                </div>
+                <div class="form-group"><br> <label>物件所有者管理番号</label> <input name="bukenOwnNo" type="text"
+                                                                             class="form-control" placeholder=""
+                                                                             th:value="${selectedinfo!=null}?${selectedinfo.bukenOwnNo}">
+                </div>
+                <div class="form-group"><br> <label>礼金</label> <input name="reikin" type="text" class="form-control"
+                                                                      placeholder=""
+                                                                      th:value="${selectedinfo!=null}?${selectedinfo.reikin}">
+                </div>
+                <div class="form-group"><br> <label>敷金</label> <input name="shikikin" type="text" class="form-control"
+                                                                      placeholder=""
+                                                                      th:value="${selectedinfo!=null}?${selectedinfo.shikikin}">
+                </div>
+                <div class="form-group"><br> <label>ステータス</label>
+<!--                    <input name="bukenStatus" type="text" class="form-control" placeholder="" th:value="${selectedinfo!=null}?${selectedinfo.bukenStatus}">-->
+                    <select class="form-control" name="bukenStatus">
+                        <option th:selected="${selectedinfo!=null}?${selectedinfo.bukenStatus}==${element.key}"
+                                th:each="element:${map_02}" th:value="${element.key}" th:utext="${element.value}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group"><br> <label>広告宣伝費</label> <input name="koukokuFee" type="text"
+                                                                         class="form-control" placeholder=""
+                                                                         th:value="${selectedinfo!=null}?${selectedinfo.koukokuFee}">
+                </div>
+                <div class="form-group"><br> <label>物件所有区分</label>
+<!--                    <input name="bukenMngFlg" type="text" class="form-control" placeholder="" th:value="${selectedinfo!=null}?${selectedinfo.bukenMngFlg}">-->
+                    <select class="form-control" name="bukenMngFlg">
+                        <option th:selected="${selectedinfo!=null}?${selectedinfo.bukenMngFlg}==${element.key}"
+                                th:each="element:${map_03}" th:value="${element.key}" th:utext="${element.value}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group"><br> <label>仲介手数料</label> <input name="chukaiFee" type="text"
+                                                                         class="form-control" placeholder=""
+                                                                         th:value="${selectedinfo!=null}?${selectedinfo.chukaiFee}">
+                </div>
+                <div class="form-group"><br> <label>修繕履歴</label> <input name="mntnaceHst" type="text"
+                                                                        class="form-control" placeholder=""
+                                                                        th:value="${selectedinfo!=null}?${selectedinfo.mntnaceHst}">
+                </div>
+
+                <div class="form-group"><br> <label>入力者コード</label> <input name="tantoshaCode" type="text"
+                                                                          class="form-control" placeholder=""
+                                                                          th:value="${selectedinfo!=null}?${selectedinfo.tantoshaCode}">
+                </div>
+
+                <button type="submit" class="btn btn-primary" th:text="保存"></button>
+            </form>
+        </main>
+    </div>
+</div>
+</body>
+</html>

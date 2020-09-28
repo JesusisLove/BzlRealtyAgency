@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+_于Mybatis的SQL文件映射_怎_写，我_要参照Mybatis的官方文档，官方文档都托管到了GitHub下
+我_就从GitHub网站去搜索MyBatis的相__料
+配置的参照例子
+https://mybatis.org/mybatis-3/getting-started.html
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.springboot04web.mapper.CtKeiyaku019Mapper">
+    <select id= "getInfoList" resultType="com.liu.springboot04web.bean.CtKeiyaku019Bean">
+        select * from bzl_nyuukyosyamst
+    </select>
+    <select id= "getInfoById" resultType="com.liu.springboot04web.bean.CtKeiyaku019Bean">
+        select * from bzl_nyuukyosyamst
+        where resident_mng_no = #{residentMngNo}
+    </select>
+    <update id="updateInfo">
+      update bzl_nyuukyosyamst set
+        sys_id = #{sysId},
+        resident_mng_no = #{residentMngNo},
+        fullname = #{fullname},
+        fullname_kana = #{fullnameKana},
+        gender = #{gender},
+        birth_day = #{birthDay},
+        post_code = #{postCode},
+        loaction1 = #{loaction1},
+        loaction2 = #{loaction2},
+        apart_name = #{apartName},
+        apart_code = #{apartCode},
+        kaisya_name = #{kaisyaName},
+        tel_number = #{telNumber},
+        email = #{email},
+        resident_flg = #{residentFlg},
+        tantosha_code = #{tantoshaCode}
+        where sys_id = #{sysId}
+          and resident_mng_no = #{residentMngNo}
+    </update>
+    <insert id="insertInfo" keyColumn="resident_mng_no">
+        insert into bzl_nyuukyosyamst (
+            sys_id,
+            resident_mng_no,
+            fullname,
+            fullname_kana,
+            gender,
+            birth_day,
+            post_code,
+            loaction1,
+            loaction2,
+            apart_name,
+            apart_code,
+            kaisya_name,
+            tel_number,
+            email,
+            resident_flg,
+            tantosha_code
+         )
+        values (
+            #{sysId},
+            #{residentMngNo},
+            #{fullname},
+            #{fullnameKana},
+            #{gender},
+            #{birthDay},
+            #{postCode},
+            #{loaction1},
+            #{loaction2},
+            #{apartName},
+            #{apartCode},
+            #{kaisyaName},
+            #{telNumber},
+            #{email},
+            #{residentFlg},
+            #{tantoshaCode}
+        )
+    </insert>
+    <delete id="deleteInfo">
+        delete from bzl_nyuukyosyamst
+        where resident_mng_no = #{residentMngNo}
+    </delete>
+    <select id="getNextSequence" parameterType="map" statementType="CALLABLE">
+          {
+              #{parm_out,mode=OUT,jdbcType=INTEGER} = call nextval(#{parm_in,mode=IN})
+          }
+    </select>
+</mapper>

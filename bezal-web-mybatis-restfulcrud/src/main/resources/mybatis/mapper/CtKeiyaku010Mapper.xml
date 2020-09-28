@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+_于Mybatis的SQL文件映射_怎_写，我_要参照Mybatis的官方文档，官方文档都托管到了GitHub下
+我_就从GitHub网站去搜索MyBatis的相__料
+配置的参照例子
+https://mybatis.org/mybatis-3/getting-started.html
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.springboot04web.mapper.CtKeiyaku010Mapper">
+    <select id= "getInfoList" resultType="com.liu.springboot04web.bean.CtKeiyaku010Bean">
+        select * from bzl_rentkeiyaku
+    </select>
+    <select id= "getInfoById" resultType="com.liu.springboot04web.bean.CtKeiyaku010Bean">
+        select * from bzl_rentkeiyaku
+        where anken_mng_no = #{ankenMngNo}
+    </select>
+    <update id="updateInfo">
+      update bzl_rentkeiyaku set
+            sys_id = #{sysId},
+            anken_mng_no = #{ankenMngNo},
+            keiyaku_sign_date = #{keiyakuSignDate},
+            keiyaku_tantosha = #{keiyakuTantosha},
+            keiyaku_mng_no = #{keiyakuMngNo},
+            buken_mng_cop_no = #{bukenMngCopNo},
+            buken_mng_no = #{bukenMngNo},
+            keiyaku_start_date = #{keiyakuStartDate},
+            keiyaku_end_date = #{keiyakuEndDate},
+            update_fee = #{updateFee},
+            update_tesu_fee = #{updateTesuFee},
+            terminate_notice = #{terminateNotice},
+            kojin_hojin_flg = #{kojinHojinFlg},
+            hosho_cop_mng_no = #{hoshoCopMngNo},
+            hoken_plan_code = #{hokenPlanCode},
+            hoshosha_mng_no = #{hoshoshaMngNo},
+            furikomi_jiki = #{furikomiJiki},
+            furikomi_date = #{furikomiDate},
+            hoken_update_flg = #{hokenUpdateFlg},
+            chukai_cop_mng_no = #{chukaiCopMngNo},
+            kazaihoken_mng_no = #{kazaihokenMngNo},
+            kasai_plan_code = #{kasaiPlanCode},
+            gas_cop = #{gasCop},
+            denki_cop = #{denkiCop},
+            suido_cop = #{suidoCop},
+            shokaisha_mng_no = #{shokaishaMngNo},
+            koushin_kaisu = #{koushinKaisu},
+            resident1 = #{resident1},
+            resident2 = #{resident2},
+            resident3 = #{resident3},
+            resident4 = #{resident4},
+            resident5 = #{resident5},
+            resident6 = #{resident6},
+            resident7 = #{resident7},
+            resident8 = #{resident8},
+            resident9 = #{resident9},
+            resident10 = #{resident10},
+            tantosha_code = #{tantoshaCode},
+            rent_fee = #{rentFee},
+            reikin = #{reikin},
+            shikikin = #{shikikin},
+            koukoku_fee = #{koukokuFee},
+            chukai_fee = #{chukaiFee},
+            keiyaku_fee = #{keiyakuFee},
+            kagi_change_fee = #{kagiChangeFee},
+            house_cleaning_fee = #{houseCleaningFee}
+        where sys_id = #{sysId}
+          and anken_mng_no = #{ankenMngNo}
+    </update>
+    <insert id="insertInfo" keyColumn="anken_mng_no">
+        insert into bzl_rentkeiyaku (
+            sys_id,
+            anken_mng_no,
+            keiyaku_sign_date,
+            keiyaku_tantosha,
+            keiyaku_mng_no,
+            buken_mng_cop_no,
+            buken_mng_no,
+            keiyaku_start_date,
+            keiyaku_end_date,
+            update_fee,
+            update_tesu_fee,
+            terminate_notice,
+            kojin_hojin_flg,
+            hosho_cop_mng_no,
+            hoken_plan_code,
+            hoshosha_mng_no,
+            furikomi_jiki,
+            furikomi_date,
+            hoken_update_flg,
+            chukai_cop_mng_no,
+            kazaihoken_mng_no,
+            kasai_plan_code,
+            gas_cop,
+            denki_cop,
+            suido_cop,
+            shokaisha_mng_no,
+            koushin_kaisu,
+            resident1,
+            resident2,
+            resident3,
+            resident4,
+            resident5,
+            resident6,
+            resident7,
+            resident8,
+            resident9,
+            resident10,
+            tantosha_code,
+            rent_fee,
+            reikin,
+            shikikin,
+            koukoku_fee,
+            chukai_fee,
+            keiyaku_fee,
+            kagi_change_fee,
+            house_cleaning_fee
+         )
+        values (
+            #{sysId},
+            #{ankenMngNo},
+            #{keiyakuSignDate},
+            #{keiyakuTantosha},
+            #{keiyakuMngNo},
+            #{bukenMngCopNo},
+            #{bukenMngNo},
+            #{keiyakuStartDate},
+            #{keiyakuEndDate},
+            #{updateFee},
+            #{updateTesuFee},
+            #{terminateNotice},
+            #{kojinHojinFlg},
+            #{hoshoCopMngNo},
+            #{hokenPlanCode},
+            #{hoshoshaMngNo},
+            #{furikomiJiki},
+            #{furikomiDate},
+            #{hokenUpdateFlg},
+            #{chukaiCopMngNo},
+            #{kazaihokenMngNo},
+            #{kasaiPlanCode},
+            #{gasCop},
+            #{denkiCop},
+            #{suidoCop},
+            #{shokaishaMngNo},
+            #{koushinKaisu},
+            #{resident1},
+            #{resident2},
+            #{resident3},
+            #{resident4},
+            #{resident5},
+            #{resident6},
+            #{resident7},
+            #{resident8},
+            #{resident9},
+            #{resident10},
+            #{tantoshaCode},
+            #{rentFee},
+            #{reikin},
+            #{shikikin},
+            #{koukokuFee},
+            #{chukaiFee},
+            #{keiyakuFee},
+            #{kagiChangeFee},
+            #{houseCleaningFee}
+        )
+    </insert>
+    <delete id="deleteInfo">
+        delete from bzl_rentkeiyaku
+        where anken_mng_no = #{ankenMngNo}
+    </delete>
+    <select id="getNextSequence" parameterType="map" statementType="CALLABLE">
+          {
+              #{parm_out,mode=OUT,jdbcType=INTEGER} = call nextval(#{parm_in,mode=IN})
+          }
+    </select>
+</mapper>
