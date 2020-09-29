@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-关于Mybatis的SQL文件映射该怎么写，我们要参照Mybatis的官方文档，官方文档都托管到了GitHub下
-我们就从GitHub网站去搜索MyBatis的相关资料
 配置的参照例子
 https://mybatis.org/mybatis-3/getting-started.html
 

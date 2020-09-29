@@ -26,7 +26,7 @@ public class SysCode001Controller {
         return "sys_code_001/syscode001_list";
     }
 
-    // 【コード一覧テーブル】新規ボタンを押下して、【コード一覧テーブル】新規画面へ遷移すること
+    // 【コード一覧テーブル新規】ボタンを押下して、【コード一覧テーブル】新規画面へ遷移すること
     @GetMapping("/sys_code_001")
     public String toInfoAdd(Model model) {
 
@@ -36,7 +36,7 @@ public class SysCode001Controller {
         return "sys_code_001/syscode001_add_update";
     }
 
-    // 【コード一覧テーブル】新規画面にて、【保存】ボタンを押下して、新規情報を保存すること
+    // 【コード一覧テーブル新規】画面にて、【保存】ボタンを押下して、新規情報を保存すること
     @PostMapping("/sys_code_001")
     public String excuteInfoAdd(SysCode001Bean sysCode001Bean) {
         System.out.println("" + sysCode001Bean);
@@ -44,17 +44,18 @@ public class SysCode001Controller {
         return "redirect:/sys_code_001_all";
     }
 
-    // 【コード一覧テーブル】一覧画面にて、項目管理ボタンを押下して、対象テーブルの【コード一覧】編集画面へ遷移すること
+    // 【コード一覧テーブル】一覧画面にて、【項目管理】ボタンを押下して、対象テーブルの【コード一覧項目】画面へ遷移すること
     @GetMapping("/sys_code_001_additem/{id}")
     public String toAddTableItem(@PathVariable("id") String id, Model model) {
         // テーブル採番リストを設定する
         Collection<SysCode002Bean> collection = sysCode002Dao.getInfoListById(id);
+        model.addAttribute("tablemngno",id);
         model.addAttribute("infoList", collection);
 
         return "sys_code_002/syscode002_list";
     }
 
-    // 【コード一覧テーブル】編集ボタンを押下して、【コード一覧テーブル】編集画面へ遷移すること
+    // 【コード一覧テーブル編集】ボタンを押下して、【コード一覧テーブル】編集画面へ遷移すること
     @GetMapping("/sys_code_001/{id}")
     public String toInfoEdit(@PathVariable("id") String id, Model model) {
         // テーブル採番リストを設定する
@@ -65,7 +66,7 @@ public class SysCode001Controller {
         return "sys_code_001/syscode001_add_update";
     }
 
-    // 【コード一覧テーブル】編集画面にて、【保存】ボタンを押下して、変更した情報を保存すること
+    // 【コード一覧テーブル編集】画面にて、【保存】ボタンを押下して、変更した情報を保存すること
     @PutMapping("/sys_code_001")
     public String excuteInfoEdit(@ModelAttribute SysCode001Bean sysCode001Bean) {
         sysCode001Dao.save(sysCode001Bean);

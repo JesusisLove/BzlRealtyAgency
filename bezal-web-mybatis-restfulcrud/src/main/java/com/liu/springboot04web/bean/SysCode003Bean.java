@@ -13,6 +13,7 @@ public class SysCode003Bean implements BzlFudousanBean {
     protected Date timeStampNew;
     protected Date timeStampUpdate;
     protected Integer delFlg;
+
     public SysCode003Bean() {}
 
     public String getSysId() {

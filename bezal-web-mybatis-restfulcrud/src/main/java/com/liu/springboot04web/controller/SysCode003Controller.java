@@ -1,6 +1,7 @@
 package com.liu.springboot04web.controller;
 
 import com.liu.springboot04web.bean.SysCode001Bean;
+import com.liu.springboot04web.bean.SysCode002Bean;
 import com.liu.springboot04web.bean.SysCode003Bean;
 import com.liu.springboot04web.dao.SysCode001Dao;
 import com.liu.springboot04web.dao.SysCode003Dao;
@@ -26,12 +27,17 @@ public class SysCode003Controller {
         return "sys_code_003/syscode003_list";
     }
 
-    // 【コード値一覧】新規ボタンを押下して、【コード値一覧】新規画面へ遷移すること
-    @GetMapping("/sys_code_003")
-    public String toInfoAdd(Model model) {
+    // 【コード値一覧新規】ボタンを押下して、【コード値一覧】新規画面へ遷移すること
+    @GetMapping("/sys_code_003/{tableMngNo}/{tableFieldNo}")
+    public String toInfoAdd(@PathVariable(value = "tableMngNo") String tableMngNo,
+                            @PathVariable(value = "tableFieldNo") String tableFieldNo,
+                            Model model) {
         // テーブル採番リストを設定する
-        Collection<SysCode001Bean> collection = sysCode001Dao.getInfoList();
-        model.addAttribute("tableidlist", collection);
+        //Collection<SysCode001Bean> collection = sysCode001Dao.getInfoList();
+        //model.addAttribute("tableidlist", collection);
+
+        SysCode003Bean sysCode003Bean = sysCode003Dao.getMaxCodeById(tableMngNo, tableFieldNo);
+        model.addAttribute("targetinfo", sysCode003Bean);
 
         return "sys_code_003/syscode003_add_update";
     }
@@ -41,10 +47,12 @@ public class SysCode003Controller {
     public String excuteInfoAdd(SysCode003Bean sysCode003Bean,Model model) {
         System.out.println("" + sysCode003Bean);
         sysCode003Dao.save(sysCode003Bean);
-//        return "redirect:/sys_code_003_all";
+        // 重定向
+        // return "redirect:/sys_code_003_all";
 
         // テーブル採番リストを設定する
-        Collection<SysCode003Bean> collection = sysCode003Dao.getInfoListByParm(sysCode003Bean.getTableMngNo(),sysCode003Bean.getTableFieldNo());
+        Collection<SysCode003Bean> collection = sysCode003Dao.getInfoListByParm(sysCode003Bean.getTableMngNo(),
+                                                                                sysCode003Bean.getTableFieldNo());
         model.addAttribute("infoList", collection);
         return "sys_code_003/syscode003_list";
     }
@@ -60,7 +68,7 @@ public class SysCode003Controller {
         model.addAttribute("tableidlist", collection);
 
         SysCode003Bean sysCode003Bean = sysCode003Dao.getInfoById(id,tableMngNo,tableFieldNo);
-        model.addAttribute("selectedinfo", sysCode003Bean);
+        model.addAttribute("targetinfo", sysCode003Bean);
 
         return "sys_code_003/syscode003_add_update";
     }
@@ -69,10 +77,12 @@ public class SysCode003Controller {
     @PutMapping("/sys_code_003")
     public String excuteInfoEdit(@ModelAttribute SysCode003Bean sysCode003Bean,Model model) {
         sysCode003Dao.save(sysCode003Bean);
-//        return "redirect:/sys_code_003_all";
+        // 重定向
+        // return "redirect:/sys_code_003_all";
 
         // テーブル採番リストを設定する
-        Collection<SysCode003Bean> collection = sysCode003Dao.getInfoListByParm(sysCode003Bean.getTableMngNo(),sysCode003Bean.getTableFieldNo());
+        Collection<SysCode003Bean> collection = sysCode003Dao.getInfoListByParm(sysCode003Bean.getTableMngNo(),
+                                                                                sysCode003Bean.getTableFieldNo());
         model.addAttribute("infoList", collection);
         return "sys_code_003/syscode003_list";
     }
@@ -82,9 +92,10 @@ public class SysCode003Controller {
     public String excuteInfoDelete(@PathVariable("tableCodeId") String tableCodeId,
                                    @PathVariable(value = "tableMngNo") String tableMngNo,
                                    @PathVariable(value = "tableFieldNo") String tableFieldNo
-                                   ,Model model) {
+            ,Model model) {
         sysCode003Dao.delete(tableCodeId, tableMngNo, tableFieldNo);
-//        return "redirect:/sys_code_003_all";
+        // 重定向
+        // return "redirect:/sys_code_003_all";
 
         // テーブル採番リストを設定する
         Collection<SysCode003Bean> collection = sysCode003Dao.getInfoListByParm(tableMngNo,tableFieldNo);

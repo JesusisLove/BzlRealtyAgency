@@ -30,6 +30,27 @@ public class SysCode003Dao {
         System.out.println("selectのコード値一覧データ：" + sysCode003Bean.toString());
         return sysCode003Bean;
     }
+
+    public SysCode003Bean getMaxCodeById(String tableMngNo, String tableFieldNo) {
+        SysCode003Bean sysCode003Bean = sysCode003Mapper.getMaxCodeById(tableMngNo,tableFieldNo);
+
+        // 抽出したデータがnullの場合は
+        if (sysCode003Bean == null) {
+            SysCode003Bean bean = new SysCode003Bean();
+            bean.setSysId(BzlSeqConstant.CONSTANT_SYSID);
+            bean.setTableMngNo(tableMngNo);
+            bean.setTableFieldNo(tableFieldNo);
+            bean.setTableCodeId("-1");
+            sysCode003Bean = bean;
+        }
+        // 最大コード番号を設定する
+        Integer maxItemNo = Integer.valueOf(sysCode003Bean.getTableCodeId()) + 1 ;
+        sysCode003Bean.setTableCodeId(maxItemNo.toString());
+
+        System.out.println("selectのコードMax値データ：" + sysCode003Bean.toString());
+        return sysCode003Bean;
+    }
+
     public void save(SysCode003Bean sysCode003Bean) {
         SysCode003Bean bean = sysCode003Mapper.getInfoById(sysCode003Bean.getTableCodeId(),
                                                            sysCode003Bean.getTableMngNo(),

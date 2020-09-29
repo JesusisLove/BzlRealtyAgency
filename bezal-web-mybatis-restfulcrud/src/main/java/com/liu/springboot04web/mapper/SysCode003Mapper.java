@@ -14,6 +14,9 @@ public interface SysCode003Mapper {
 
     public SysCode003Bean getInfoById(String tableCodeId, String tableMngNo, String tableFieldNo);
 
+    // 対象Tableにて、最大項目IDを抽出するメソッド
+    public SysCode003Bean getMaxCodeById(String tableMngNo, String tableFieldNo);
+
     public void updateInfo(SysCode003Bean bean);
 
     public void insertInfo(SysCode003Bean bean);

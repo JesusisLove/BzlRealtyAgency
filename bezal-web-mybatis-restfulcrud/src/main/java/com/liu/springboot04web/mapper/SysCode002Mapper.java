@@ -10,6 +10,9 @@ public interface SysCode002Mapper {
 
     public List<SysCode002Bean> getInfoListById(String tableMngNo);
 
+    // 対象Tableにて、最大項目IDを抽出するメソッド
+    public SysCode002Bean getMaxItemById(String tableFieldNo);
+
     public SysCode002Bean getInfoById(String tableFieldNo, String tableMngNo);
 
     public void updateInfo(SysCode002Bean bean);

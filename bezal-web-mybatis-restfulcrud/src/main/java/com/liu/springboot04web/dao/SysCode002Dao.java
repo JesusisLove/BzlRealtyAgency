@@ -19,6 +19,26 @@ public class SysCode002Dao {
         return list;
     }
 
+    public SysCode002Bean getMaxItemById(String tblNo) {
+        // てーぶる管理番号より、当該テーブルコードがある項目を抽出する
+        SysCode002Bean sysCode002Bean = sysCode002Mapper.getMaxItemById(tblNo);
+
+        // 抽出したデータがnullの場合は
+        if (sysCode002Bean == null) {
+            SysCode002Bean bean = new SysCode002Bean();
+            bean.setSysId(BzlSeqConstant.CONSTANT_SYSID);
+            bean.setTableMngNo(tblNo);
+            bean.setTableFieldNo("00");
+            sysCode002Bean = bean;
+        }
+
+        System.out.println("selectのコード一覧Max項目データ：" + sysCode002Bean.toString());
+        // 最大項目番号を設定する
+        Integer maxItemNo = Integer.valueOf(sysCode002Bean.getTableFieldNo()) + 1 ;
+        sysCode002Bean.setTableFieldNo(String.format("%02d%n",maxItemNo));
+        return sysCode002Bean;
+    }
+
     public List<SysCode002Bean> getInfoListById(String id) {
         List<SysCode002Bean> list = sysCode002Mapper.getInfoListById(id);
         System.out.println("selectのコード一覧項目データ：" + list.toString());
@@ -37,9 +57,10 @@ public class SysCode002Dao {
         if (bean == null) {
             // システムID
             sysCode002Bean.setSysId(BzlSeqConstant.CONSTANT_SYSID);
-
+            // コードに対する項目情報の新規を追加すること
             insert(sysCode002Bean);
         } else {
+            // コードに対する項目情報を変更すること
             update(sysCode002Bean);
         }
     }
